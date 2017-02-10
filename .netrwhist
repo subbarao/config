@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/Users/spasupuleti4/dotvim2/dist'
+let g:netrw_dirhist_2='/Users/spasupuleti4/Go/src/calculator'
+let g:netrw_dirhist_3='/Users/spasupuleti4/Go/src/calculator/server'
+let g:netrw_dirhist_4='/Users/spasupuleti4/dotvim2/dist/bundle'
+let g:netrw_dirhist_5='/Users/spasupuleti4/dotvim2/dist'
+let g:netrw_dirhist_6='/Users/spasupuleti4/Go/src/calculator'
+let g:netrw_dirhist_7='/Users/spasupuleti4/Go/src/github.com/revel/samples/booking'

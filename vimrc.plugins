@@ -1,0 +1,386 @@
+
+" plugins/10-init/files -------------------
+Plugin('Shougo/dein.vim')
+Plugin 'Shougo/vimproc.vim', {'build': 'make'}
+Plugin('Shougo/unite.vim')
+
+" plugins/20-settings/files -------------------
+
+let mapleader = ","
+let maplocalleader = "\\"
+
+" plugins/30-general/plugins/airline/files -------------------
+
+Plugin('vim-airline/vim-airline')
+Plugin('vim-airline/vim-airline-themes')
+
+let g:airline_powerline_fonts=1
+let g:airline_theme='light' " dark simple badwolf solarized solarized2
+set noshowmode
+
+" plugins/30-general/plugins/greplace/files -------------------
+
+Plugin('greplace.vim')
+
+" plugins/30-general/plugins/gundo/files -------------------
+
+Plugin('sjl/gundo.vim')
+
+let g:gundo_close_on_revert = 1
+
+nmap <leader>u :GundoToggle<CR>
+
+" plugins/30-general/plugins/indent/lines -------------------
+
+Plugin('Yggdroot/indentLine')
+
+" plugins/30-general/plugins/nerdtools/plugins/nerdtree/files -------------------
+
+Plugin('scrooloose/nerdtree')
+
+" Tells the NERD tree to respect 'wildignore'.
+let NERDTreeRespectWildIgnore=1
+
+" plugins/30-general/plugins/nerdtools/plugins/nerdtree/plugins/10-nerdtree-git/files -------------------
+
+Plugin('Xuyuanp/nerdtree-git-plugin')
+
+" plugins/30-general/plugins/nerdtools/plugins/nerdtree/plugins/20-nerdtree-tabs/files -------------------
+
+Plugin('jistr/vim-nerdtree-tabs')
+
+" nerdtree with tqbs
+" Ctrl-P to Display the file browser tree
+nmap <C-P> :NERDTreeTabsToggle<CR>
+" ,p to show current file in the tree
+nmap <leader>p :NERDTreeFind<CR>
+
+" plugins/30-general/plugins/nerdtools/plugins/netdcommenter/files -------------------
+
+Plugin('scrooloose/nerdcommenter')
+
+" ,/ to invert comment on the current line/selection
+nmap <leader>/ :call NERDComment(0, "invert")<cr>
+vmap <leader>/ :call NERDComment(0, "invert")<cr>
+
+" plugins/30-general/plugins/repeat/files -------------------
+
+" replacement for the repeat mapping (.) to support plugins
+Plugin('tpope/vim-repeat')
+
+" plugins/30-general/plugins/session/files -------------------
+
+Plugin('xolox/vim-misc')
+Plugin('xolox/vim-session')
+
+let g:session_autosave = 'no'
+let g:session_autoload = 'no'
+
+nmap <leader>SS :SaveSession
+nmap <leader>SO :OpenSession
+if has('gui_running')
+  nmap <leader>SR :RestartVim<CR>
+endif
+
+" plugins/30-general/plugins/switch/files -------------------
+
+Plugin('AndrewRadev/switch.vim')
+
+" making some of the switches defined for ruby work in HAML files
+autocmd FileType haml let b:switch_definitions =
+      \ [
+      \   g:switch_builtins.ruby_hash_style,
+      \   g:switch_builtins.ruby_string,
+      \   g:switch_builtins.true_false,
+      \   g:switch_builtins.true_false,
+      \ ]
+
+nnoremap ` :Switch<cr>
+
+" plugins/30-general/plugins/utl/files -------------------
+
+Plugin('utl.vim')
+
+" config help: <url:~/.vim/dein/.dein/plugin/utl_rc.vim#r=utl_cfg_hdl_scm_http>
+if has("mac")
+  let g:utl_cfg_hdl_scm_http_system = "!open '%u'"
+end
+
+nmap <leader>o :Utl <space>
+
+" plugins/30-general/plugins/xterm-color-table/files -------------------
+
+Plugin('guns/xterm-color-table.vim')
+
+" plugins/50-fuzzy-tools/plugins/00-unite/files -------------------
+
+Plugin('Shougo/unite-outline')
+Plugin('Shougo/neoyank.vim')
+Plugin('Shougo/neomru.vim')
+Plugin('tsukkee/unite-tag')
+
+if executable('ag')
+  let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '-g', '']
+endif
+
+nmap <leader>O :Unite -start-insert -no-split -buffer-name=Outline outline<cr>
+
+" plugins/50-fuzzy-tools/plugins/00-unite/plugins/10-unite-colorscheme/files -------------------
+
+Plugin('ujihisa/unite-colorscheme')
+
+command! THEME Unite -no-start-insert -auto-preview colorscheme
+
+" plugins/50-fuzzy-tools/plugins/01-ctrlp/files -------------------
+
+Plugin('ctrlpvim/ctrlp.vim')
+
+let g:ctrlp_clear_cache_on_exit = 1
+
+let g:ctrlp_max_height = 20
+
+" jump to buffer in the same tab if already open
+let g:ctrlp_switch_buffer = 0
+
+" if in git repo - use git file listing command, should be faster
+" using this option overrides standard CtrlP ignore list based on vim wildignore
+" so use 'grep -v ...' to exclude common image and font files from the search
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files --exclude-standard -cod | grep -viE "\.(png|gif|jpg|gz|woff|eot|tiff|ttf|otf)$"']
+
+" open multiple files with <c-z> to mark and <c-o> to open. v - opening in
+" vertical splits; j - jump to first open buffer; r - open first in current buffer
+let g:ctrlp_open_multiple_files = 'hjr'
+
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'mixed', 'line']
+
+let g:ctrlp_working_path_mode = 'ra'
+
+" prevent CtrlP from adding the default map
+let g:ctrlp_map = ''
+
+" plugins/50-fuzzy-tools/plugins/02-fzf/files -------------------
+
+Plugin('junegunn/fzf.vim')
+
+if executable("ag") && ('' == $FZF_DEFAULT_COMMAND)
+  let $FZF_DEFAULT_COMMAND = "ag --follow --nocolor --nogroup -g ''"
+endif
+
+" plugins/50-fuzzy-tools/plugins/02-fzf/install.sh -------------------
+
+set rtp+=/usr/local/opt/fzf/
+
+" plugins/50-fuzzy-tools/plugins/10-fuzzy-files/fzf -------------------
+
+nmap <leader>, :Files<cr>
+
+
+" plugins/50-fuzzy-tools/plugins/20-fuzzy-buffers/fzf -------------------
+
+nmap <leader>b :Buffers<cr>
+
+" plugins/50-fuzzy-tools/plugins/30-fuzzy-quickfix/unite -------------------
+
+Plugin('osyo-manga/unite-quickfix')
+
+nmap <leader>q :Unite -start-insert -no-split -buffer-name=QuickFix quickfix<cr>
+
+" plugins/50-fuzzy-tools/plugins/40-ag/files -------------------
+
+nmap <leader>k :Ag<space>
+
+" plugins/50-fuzzy-tools/plugins/40-fuzzy-lines/fzf -------------------
+
+nmap <leader>l :Lines<cr>
+
+" plugins/50-fuzzy-tools/plugins/50-fuzzy-tags/fzf -------------------
+
+nmap <leader>t :Tags<cr>
+nmap <localleader>t :BTags<cr>
+
+" plugins/50-fuzzy-tools/plugins/60-fuzzy-yank/yankring -------------------
+
+Plugin('YankRing.vim')
+
+let g:yankring_replace_n_pkey = '<leader>['
+let g:yankring_replace_n_nkey = '<leader>]'
+
+" put the yankring_history file in ~/.backup
+let g:yankring_history_dir = expand('~/.backup')
+
+let g:yankring_max_history = 1000
+
+" ,y to show the yankring
+nmap <leader>y :YRShow<cr>
+
+let g:yankring_window_height = 20
+
+" plugins/60-development/plugins/delimitmate/files -------------------
+
+Plugin('Raimondi/delimitMate')
+
+" Turns on/off the expansion of <Space>
+let g:delimitMate_expand_space = 1
+
+" Turns on/off the expansion of <CR>
+let g:delimitMate_expand_cr = 1
+
+" plugins/60-development/plugins/editorconfig/files -------------------
+
+Plugin('editorconfig/editorconfig-vim')
+
+" plugins/60-development/plugins/endwise/files -------------------
+
+" end certain structures automatically, e.g. begin/end etc.
+Plugin('tpope/vim-endwise')
+
+" plugins/60-development/plugins/fugitive/files -------------------
+
+Plugin('tpope/vim-fugitive')
+Plugin('Merginal')
+
+" ,g for Ggrep
+nmap <leader>g :silent Ggrep<space>
+
+" ,f for global git serach for word under the cursor (with highlight)
+nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
+
+" same in visual mode
+vmap <leader>f y:let @/=escape(@", '\\[]$^*.')<CR>:set hls<CR>:silent Ggrep -F "<C-R>=escape(@", '\\"#')<CR>"<CR>:ccl<CR>:cw<CR><CR>
+
+" plugins/60-development/plugins/git-gutter/files -------------------
+
+Plugin('airblade/vim-gitgutter')
+
+" plugins/60-development/plugins/gitignore/files -------------------
+
+" hide .gitignore-d files from vim
+Plugin('vitaly/vim-gitignore')
+
+" plugins/60-development/plugins/surround/files -------------------
+
+Plugin('tpope/vim-surround')
+
+" plugins/60-development/plugins/syntastic/files -------------------
+
+Plugin('scrooloose/syntastic')
+
+" TBD: check those setgings with latest plugin version
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
+let g:syntastic_check_on_wq=0
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+
+" plugins/60-development/plugins/tmux-navigator/files -------------------
+
+Plugin('christoomey/vim-tmux-navigator')
+
+" plugins/70-languages/plugins/dockefile/files -------------------
+
+Plugin('ekalinin/Dockerfile.vim')
+
+" plugins/70-languages/plugins/go/files -------------------
+
+Plugin('fatih/vim-go')
+
+" plugins/70-languages/plugins/html/plugins/emmet/files -------------------
+
+Plugin('mattn/emmet-vim')
+
+" plugins/70-languages/plugins/javascript/files -------------------
+
+Plugin('pangloss/vim-javascript')
+Plugin('mxw/vim-jsx')
+Plugin('mmalecki/vim-node.js')
+
+" plugins/70-languages/plugins/javascript/plugins/coffeescript/files -------------------
+
+Plugin('kchmck/vim-coffee-script')
+Plugin('vitaly/vim-literate-coffeescript')
+Plugin('mtscout6/vim-cjsx')
+
+" plugins/70-languages/plugins/json/files -------------------
+
+Plugin('elzr/vim-json')
+
+" plugins/70-languages/plugins/markdown/files -------------------
+
+Plugin('tpope/vim-markdown')
+
+" plugins/70-languages/plugins/ruby/files -------------------
+
+" Ruby syntax support
+Plugin('vim-ruby/vim-ruby')
+
+" A custom text object for selecting ruby blocks (ar/ir)
+Plugin('kana/vim-textobj-user')
+Plugin('nelstrom/vim-textobj-rubyblock')
+
+" toggle ruby blocks style
+Plugin('vim-scripts/blockle.vim')
+
+" bundler integration (e.g. :Bopen)
+Plugin('tpope/vim-bundler')
+
+" rake integration
+Plugin('tpope/vim-rake')
+
+" ruby refactoring
+Plugin('ecomba/vim-ruby-refactoring')
+
+let g:blockle_mapping = '<Leader>B'
+
+" plugins/70-languages/plugins/ruby/plugins/1-haml/files -------------------
+
+Plugin('tpope/vim-haml')
+
+" plugins/70-languages/plugins/ruby/plugins/9-rails/files -------------------
+
+" Rails support
+Plugin('tpope/vim-rails')
+
+" apidock.com docs integration
+Plugin('apidock.vim')
+
+" lightweight Rspec runner for Vim
+Plugin('thoughtbot/vim-rspec')
+
+" Rails i18n extraction plugin
+Plugin('stefanoverna/vim-i18n')
+
+" vim-rspec
+map <Leader>r :call RunNearestSpec()<CR>
+
+" plugins/70-languages/plugins/tasks/files -------------------
+
+Plugin('irrationalistic/vim-tasks')
+
+" plugins/70-languages/plugins/tmux/files -------------------
+
+Plugin('tsaleh/vim-tmux')
+
+" plugins/70-languages/plugins/typescript/files -------------------
+
+Plugin('leafgarland/typescript-vim')
+
+" plugins/80-color-themes/files -------------------
+
+Plugin('altercation/vim-colors-solarized')
+Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+Plugin('tpope/vim-vividchalk')
+Plugin('nanotech/jellybeans.vim')
+Plugin('lifepillar/vim-solarized8')
+Plugin('uarun/vim-protobuf')
+
+" plugins/99-final/plugins/10-local-configs/files -------------------
+
+if filereadable(expand("~/.vimrc.plugins"))
+    source ~/.vimrc.plugins
+endif
+
+" plugins/99-final/plugins/20-gvim-configs/files -------------------
+
+if has('gui_running')
+  source ~/.vim/gvimrc.plugins
+end

@@ -1,0 +1,7 @@
+
+# plugins/10-init/files -------------------
+
+bundle
+src
+.config.new
+sessions
