@@ -1,6 +1,6 @@
 
 # plugins/10-init/files -------------------
-
+.netrwhist
 bundle
 src
 .config.new
