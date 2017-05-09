@@ -283,6 +283,7 @@ Plugin('ekalinin/Dockerfile.vim')
 " plugins/70-languages/plugins/go/files -------------------
 
 Plugin('fatih/vim-go')
+set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 
 " plugins/70-languages/plugins/html/plugins/emmet/files -------------------
 
@@ -291,6 +292,7 @@ Plugin('mattn/emmet-vim')
 " plugins/70-languages/plugins/javascript/files -------------------
 
 Plugin('pangloss/vim-javascript')
+Plugin('maksimr/vim-jsbeautify')
 Plugin('mxw/vim-jsx')
 Plugin('mmalecki/vim-node.js')
 
